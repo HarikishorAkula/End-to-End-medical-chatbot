@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Medical Chatbot</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(to right, #283c34, #363c46, #20202b);
+    font-family: Arial;
+}
+
+/* CARD */
+.card {
+    height: 90vh;
+    border-radius: 15px;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* HEADER */
+.card-header {
+    background: rgba(0,0,0,0.6);
+    color: white;
+}
+
+/* CHAT AREA */
+#chatbox {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+/* INPUT AREA */
+.card-footer {
+    background: rgba(0,0,0,0.6);
+}
+
+/* USER MESSAGE */
+.user_msg {
+    background: #58cc71;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    max-width: 70%;
+    margin-left: auto;
+    margin-bottom: 10px;
+}
+
+/* BOT MESSAGE */
+.bot_msg {
+    background: #52acff;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    max-width: 70%;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+/* INPUT */
+#text {
+    background: rgba(0,0,0,0.3);
+    border: none;
+    color: white;
+    height: 45px;
+}
+
+#text:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* BUTTON */
+.send_btn {
+    background: #4cd137;
+    border: none;
+    color: white;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container-fluid h-100">
+    <div class="row justify-content-center h-100">
+        <div class="col-md-8 col-xl-6">
+
+            <div class="card">
+
+                <!-- HEADER -->
+                <div class="card-header text-center">
+                    <h4>🩺 Medical Chatbot</h4>
+                    <small>Ask me anything</small>
+                </div>
+
+                <!-- CHAT BOX -->
+                <div id="chatbox"></div>
+
+                <!-- INPUT -->
+                <div class="card-footer">
+                    <form id="chatForm" class="input-group">
+                        <input type="text" id="text" class="form-control" placeholder="Type your message..." required>
+
+                        <div class="input-group-append">
+                            <button class="btn send_btn" type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+
+    $("#chatForm").on("submit", function (e) {
+        e.preventDefault();
+
+        let msg = $("#text").val().trim();
+        if (msg === "") return;
+
+        let time = new Date().toLocaleTimeString();
+
+        // USER MESSAGE
+        $("#chatbox").append(`
+            <div class="user_msg">
+                ${msg}
+                <br><small>${time}</small>
+            </div>
+        `);
+
+        $("#text").val("");
+
+        // SCROLL DOWN
+        $("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
+
+        // BOT RESPONSE
+        $.ajax({
+            url: "/get",
+            type: "POST",
+            data: { msg: msg }
+        }).done(function (data) {
+
+            $("#chatbox").append(`
+                <div class="bot_msg">
+                    ${data}
+                    <br><small>${time}</small>
+                </div>
+            `);
+
+            $("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
+        });
+
+    });
+
+});
+</script>
+
+</body>
+</html>
