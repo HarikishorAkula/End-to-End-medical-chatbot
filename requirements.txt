@@ -6,7 +6,7 @@ langchain-community==0.0.3
 langchain-openai==0.0.3
 langchain-experimental==0.0.3
 
-# Web framework
+# Web frameworks
 flask==3.0.2
 streamlit==1.32.0
 
@@ -22,14 +22,11 @@ pinecone-client[grpc]==3.0.0
 # Gemini SDK
 google-generativeai==0.5.0
 
-# Rich text + console formatting
+# Rich text + console formatting (pinned to avoid conflicts)
 rich==15.0.0
 markdown-it-py==4.0.0
 pygments==2.20.0
 mdurl==0.1.2
 
-# Ensure latest pip
+# Force latest pip resolver
 pip>=26.0.1
-
-# Local editable install (only if setup.py/pyproject.toml exists)
--e .
