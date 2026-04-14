@@ -8,8 +8,7 @@ langchain-openai==0.0.8
 langchain-experimental==0.0.5
 langchain-pinecone==0.0.1
 
-# Web frameworks
-flask==3.0.2
+
 streamlit==1.32.0
 
 # PDF handling
@@ -18,7 +17,7 @@ pypdf==3.17.1
 # Environment variables
 python-dotenv==1.0.1
 
-# Pinecone vector DB
+# Pinecone vector DB (latest stable compatible)
 pinecone-client[grpc]==2.2.2
 
 # Gemini SDK
