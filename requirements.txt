@@ -2,13 +2,14 @@ pip>=26.0.1
 
 # Core AI + embeddings
 sentence-transformers==2.2.2
-langchain==0.2.11
-langchain-community==0.0.8
+langchain==0.1.17
+langchain-community==0.0.9
 langchain-openai==0.0.8
 langchain-experimental==0.0.5
 langchain-pinecone==0.0.1
 
-
+# Web frameworks
+flask==3.0.2
 streamlit==1.32.0
 
 # PDF handling
@@ -17,7 +18,7 @@ pypdf==3.17.1
 # Environment variables
 python-dotenv==1.0.1
 
-# Pinecone vector DB (latest stable compatible)
+# Pinecone vector DB
 pinecone-client[grpc]==2.2.2
 
 # Gemini SDK
